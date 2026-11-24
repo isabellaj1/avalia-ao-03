@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEAUTYSTORE - Catálogo Completo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f6f6f8;
+            color: #18181b;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Barra Superior */
+        .top-bar {
+            background: linear-gradient(90deg, #a80015 0%, #d90429 100%);
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 0.55rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cupom {
+            background-color: #ffffff;
+            color: #c9001a;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin-left: 4px;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #ffffff;
+            padding: 1.15rem 2rem;
+            border-bottom: 1px solid #e4e4e7;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .header-container {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 3.5px;
+            color: #111111;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .logo:hover {
+            color: #c9001a;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+            font-size: 0.85rem;
+            background-color: #fcfcfc;
+        }
+
+        .search-box input:focus {
+            border-color: #c9001a;
+            background-color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.6rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #27272a;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #c9001a;
+            border-bottom-color: #c9001a;
+        }
+
+        /* Conteúdo Principal */
+        main {
+            flex: 1;
+            max-width: 1180px;
+            width: 100%;
+            margin: 2.5rem auto 3.5rem;
+            padding: 0 1.5rem;
+        }
+
+        .titulo-principal {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            color: #111;
+        }
+
+        /* Títulos de Categoria */
+        .titulo-categoria {
+            background-color: #c9001a;
+            color: #ffffff;
+            padding: 0.7rem 1.2rem;
+            font-size: 1.05rem;
+            font-weight: 800;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grelha de Produtos Simétrica */
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .produto-card {
+            background-color: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .produto-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.07);
+        }
+
+        .produto-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #f8f8f8;
+        }
+
+        .produto-corpo {
+            padding: 1.15rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .selo-card {
+            align-self: flex-start;
+            background-color: #ffe4e8;
+            color: #c9001a;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 0.22rem 0.6rem;
+            border-radius: 999px;
+            margin-bottom: 0.6rem;
+        }
+
+        .produto-corpo h3 {
+            font-size: 0.95rem;
+            color: #111111;
+            margin-bottom: 0.35rem;
+            font-weight: 700;
+        }
+
+        .produto-corpo p {
+            font-size: 0.82rem;
+            color: #66666e;
+            line-height: 1.4;
+            margin-bottom: 0.9rem;
+            flex: 1;
+        }
+
+        .preco-linha {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.9rem;
+        }
+
+        .preco {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #c9001a;
+        }
+
+        .btn-card {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background-color: #c9001a;
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 0.65rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-card:hover {
+            background-color: #111111;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #111111;
+            color: #a1a1aa;
+            text-align: center;
+            padding: 1.3rem;
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 720px) {
+            .header-container {
+                flex-direction: column;
+                gap: 0.9rem;
+            }
+            .search-box {
+                width: 100%;
+                max-width: 100%;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span>FRETE GRÁTIS nas compras acima de R$ 199</span>
+        <span>CUPOM: <strong class="cupom">MEUMIMO</strong></span>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">BEAUTYSTORE</a>
+            
+            <div class="search-box">
+                <input type="text" id="campoBusca" placeholder="Pesquisar produto (ex: batom, perfume, base)...">
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="produto.html" class="active">Catálogo</a>
+                <a href="login.html">Entrar</a>
+                <a href="new.html">Criar Conta</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="titulo-principal">Catálogo Completo de Produtos</h1>
+
+        <!-- CATEGORIA 1: MAQUIAGEM -->
+        <h2 class="titulo-categoria">💄 Maquiagem</h2>
+        <div class="produtos-grid">
+            <div class="produto-card" data-nome="base liquida hd soft matte maquiagem">
+                <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=500" alt="Base">
+                <div class="produto-corpo">
+                    <span class="selo-card">Alta Cobertura</span>
+                    <h3>Base Líquida HD Soft Matte</h3>
+                    <p>Toque seco com acabamento natural de longa duração.</p>
+                    <div class="preco-linha"><span class="preco">R$ 149,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="batom liquid velvet maquiagem">
+                <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500" alt="Batom">
+                <div class="produto-corpo">
+                    <span class="selo-card">Best Seller</span>
+                    <h3>Batom Liquid Velvet</h3>
+                    <p>Efeito aveludado sem ressecar os lábios.</p>
+                    <div class="preco-linha"><span class="preco">R$ 89,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="paleta de sombras nude maquiagem">
+                <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500" alt="Paleta">
+                <div class="produto-corpo">
+                    <span class="selo-card">12 Cores</span>
+                    <h3>Paleta de Sombras Nude</h3>
+                    <p>Cores ultra pigmentadas com acabamento cintilante e matte.</p>
+                    <div class="preco-linha"><span class="preco">R$ 199,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="mascara de cilios volume extreme maquiagem">
+                <img src="https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=500" alt="Máscara">
+                <div class="produto-corpo">
+                    <span class="selo-card">À Prova d'Água</span>
+                    <h3>Máscara Cílios Volume Extreme</h3>
+                    <p>Cílios volumosos e curvados durante todo o dia.</p>
+                    <div class="preco-linha"><span class="preco">R$ 79,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="delineador liquido preto maquiagem">
+                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500" alt="Delineador">
+                <div class="produto-corpo">
+                    <span class="selo-card">Traço Preciso</span>
+                    <h3>Delineador Líquido Black</h3>
+                    <p>Ponta ultrafina e secagem rápida sem borratar.</p>
+                    <div class="preco-linha"><span class="preco">R$ 59,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="iluminador facial em po glow maquiagem">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500" alt="Iluminador">
+                <div class="produto-corpo">
+                    <span class="selo-card">Brilho Intenso</span>
+                    <h3>Iluminador Facial Glow Powder</h3>
+                    <p>Partículas ultrafinas de brilho dourado natural.</p>
+                    <div class="preco-linha"><span class="preco">R$ 79,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIA 2: PERFUMES -->
+        <h2 class="titulo-categoria">✨ Perfumes</h2>
+        <div class="produtos-grid">
+            <div class="produto-card" data-nome="perfume floral rose importado perfumes">
+                <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500" alt="Perfume Floral">
+                <div class="produto-corpo">
+                    <span class="selo-card">Feminino</span>
+                    <h3>Perfume Floral Rose</h3>
+                    <p>Fragrância marcante com notas florais e toque elegante.</p>
+                    <div class="preco-linha"><span class="preco">R$ 299,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="perfume woody intense masculino perfumes">
+                <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=500" alt="Perfume Woody">
+                <div class="produto-corpo">
+                    <span class="selo-card">Masculino</span>
+                    <h3>Perfume Woody Intense</h3>
+                    <p>Amadeirado sofisticado de alta fixação e projeção.</p>
+                    <div class="preco-linha"><span class="preco">R$ 349,00</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="perfume citrus fresh splash perfumes">
+                <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=500" alt="Perfume Cítrico">
+                <div class="produto-corpo">
+                    <span class="selo-card">Refrescante</span>
+                    <h3>Perfume Citrus Fresh</h3>
+                    <p>Sensação de frescor cítrico revigorante para o dia a dia.</p>
+                    <div class="preco-linha"><span class="preco">R$ 189,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="perfume ocean breeze eau de toilette perfumes">
+                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=500" alt="Perfume Ocean">
+                <div class="produto-corpo">
+                    <span class="selo-card">Aquático</span>
+                    <h3>Perfume Ocean Breeze</h3>
+                    <p>Fragrância leve com notas marinhas refrescantes.</p>
+                    <div class="preco-linha"><span class="preco">R$ 259,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIA 3: SKINCARE -->
+        <h2 class="titulo-categoria">🧴 Skincare</h2>
+        <div class="produtos-grid">
+            <div class="produto-card" data-nome="serum facial vitamina c skincare">
+                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500" alt="Vitamina C">
+                <div class="produto-corpo">
+                    <span class="selo-card">Antioxidante</span>
+                    <h3>Sérum Facial Vitamina C</h3>
+                    <p>Uniformiza o tom e ilumina a pele com absorção rápida.</p>
+                    <div class="preco-linha"><span class="preco">R$ 119,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="hidratante acido hialuronico skincare">
+                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500" alt="Hidratante">
+                <div class="produto-corpo">
+                    <span class="selo-card">Hidratação</span>
+                    <h3>Hidratante Ácido Hialurônico</h3>
+                    <p>Preenchimento e hidratação profunda sem pesar a pele.</p>
+                    <div class="preco-linha"><span class="preco">R$ 99,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="agua micelar demaquilante skincare">
+                <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500" alt="Água Micelar">
+                <div class="produto-corpo">
+                    <span class="selo-card">Limpeza Suave</span>
+                    <h3>Água Micelar Demaquilante</h3>
+                    <p>Remove maquiagem e impurezas sem agredir a pele.</p>
+                    <div class="preco-linha"><span class="preco">R$ 59,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="protetor solar facial toque seco fps 60 skincare">
+                <img src="https://images.unsplash.com/photo-1608248597263-00079e965f3d?w=500" alt="Protetor Solar">
+                <div class="produto-corpo">
+                    <span class="selo-card">FPS 60</span>
+                    <h3>Protetor Solar Toque Seco</h3>
+                    <p>Proteção alta contra raios UVA/UVB com efeito matte.</p>
+                    <div class="preco-linha"><span class="preco">R$ 84,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIA 4: CABELOS -->
+        <h2 class="titulo-categoria">💇‍♀️ Cabelos</h2>
+        <div class="produtos-grid">
+            <div class="produto-card" data-nome="mascara hidratacao profunda cabelos">
+                <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=500" alt="Máscara Capilar">
+                <div class="produto-corpo">
+                    <span class="selo-card">Tratamento</span>
+                    <h3>Máscara Hidratação Profunda</h3>
+                    <p>Reconstrução capilar e maciez extrema para os fios.</p>
+                    <div class="preco-linha"><span class="preco">R$ 89,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="oleo reparador argan cabelos">
+                <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500" alt="Óleo Argan">
+                <div class="produto-corpo">
+                    <span class="selo-card">Antifrizz</span>
+                    <h3>Óleo Reparador Argan</h3>
+                    <p>Brilho instantâneo, selagem de pontas e controle de frizz.</p>
+                    <div class="preco-linha"><span class="preco">R$ 69,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+
+            <div class="produto-card" data-nome="shampoo purificante detox cabelos">
+                <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500" alt="Shampoo Detox">
+                <div class="produto-corpo">
+                    <span class="selo-card">Limpeza Profunda</span>
+                    <h3>Shampoo Purificante Detox</h3>
+                    <p>Remove resíduos sem ressecar o couro cabeludo.</p>
+                    <div class="preco-linha"><span class="preco">R$ 54,90</span></div>
+                    <a href="#" class="btn-card">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BEAUTYSTORE Cosméticos S.A. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Pesquisa em Tempo Real Sem Quebrar a Grelha -->
+    <script>
+        const campoBusca = document.getElementById('campoBusca');
+        const cards = document.querySelectorAll('.produto-card');
+
+        campoBusca.addEventListener('input', function() {
+            const termo = campoBusca.value.toLowerCase().trim();
+
+            cards.forEach(card => {
+                const dataNome = card.getAttribute('data-nome');
+                const titulo = card.querySelector('h3').textContent.toLowerCase();
+
+                if (termo === "" || dataNome.includes(termo) || titulo.includes(termo)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

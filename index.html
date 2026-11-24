@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEAUTYSTORE - Novidades da Semana</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f6f6f8;
+            color: #18181b;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Barra Superior */
+        .top-bar {
+            background: linear-gradient(90deg, #a80015 0%, #d90429 100%);
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 0.55rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cupom {
+            background-color: #ffffff;
+            color: #c9001a;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin-left: 4px;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #ffffff;
+            padding: 1.15rem 2rem;
+            border-bottom: 1px solid #e4e4e7;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .header-container {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 3.5px;
+            color: #111111;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .logo:hover {
+            color: #c9001a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.6rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #27272a;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #c9001a;
+            border-bottom-color: #c9001a;
+        }
+
+        /* Conteúdo Principal */
+        main {
+            flex: 1;
+            max-width: 1180px;
+            width: 100%;
+            margin: 2.5rem auto 3.5rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Banner Principal */
+        .hero-box {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            align-items: center;
+            gap: 2rem;
+            padding: 3.2rem 2.8rem;
+            background: linear-gradient(135deg, #ffffff 0%, #fff4f6 60%, #ffe2e8 100%);
+            border: 1px solid #f2d5dc;
+            border-radius: 16px;
+            box-shadow: 0 14px 35px rgba(17, 17, 17, 0.05);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background-color: #c9001a;
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.35rem 0.8rem;
+            border-radius: 999px;
+            margin-bottom: 0.9rem;
+        }
+
+        .hero-box h1 {
+            font-size: 2.25rem;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            color: #111111;
+            margin-bottom: 0.85rem;
+            line-height: 1.15;
+        }
+
+        .hero-box p {
+            color: #52525b;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-destaque-card {
+            background-color: #ffffff;
+            border: 1px solid #ececf0;
+            border-radius: 12px;
+            padding: 1.4rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .hero-destaque-card h3 {
+            font-size: 0.95rem;
+            color: #111111;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-destaque-card p {
+            font-size: 0.85rem;
+            color: #66666e;
+            margin-bottom: 0.9rem;
+            line-height: 1.45;
+        }
+
+        .hero-destaque-card ul {
+            list-style: none;
+            font-size: 0.83rem;
+            color: #27272a;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .btn-comprar {
+            display: inline-block;
+            background-color: #c9001a;
+            color: #ffffff;
+            text-align: center;
+            padding: 0.85rem 2rem;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.84rem;
+            letter-spacing: 0.9px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(201, 0, 26, 0.25);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .btn-comprar:hover {
+            background-color: #111111;
+            transform: translateY(-2px);
+        }
+
+        /* Sobre a Loja / Benefícios */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background-color: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 12px;
+            padding: 1.4rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+        }
+
+        .info-card h3 {
+            font-size: 0.95rem;
+            color: #111111;
+            margin-bottom: 0.4rem;
+        }
+
+        .info-card p {
+            font-size: 0.84rem;
+            color: #66666e;
+            line-height: 1.45;
+        }
+
+        /* Cabeçalho de Seção */
+        .secao-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e4e4e7;
+            flex-wrap: wrap;
+        }
+
+        .secao-topo h2 {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #111111;
+        }
+
+        .secao-topo p {
+            font-size: 0.88rem;
+            color: #66666e;
+            margin-top: 0.25rem;
+        }
+
+        .link-ver-tudo {
+            text-decoration: none;
+            color: #c9001a;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .link-ver-tudo:hover {
+            text-decoration: underline;
+        }
+
+        /* Novidades da Semana */
+        .novidades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .produto-novidade {
+            background-color: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .produto-novidade:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.07);
+        }
+
+        .produto-novidade img {
+            width: 100%;
+            height: 185px;
+            object-fit: cover;
+        }
+
+        .produto-corpo {
+            padding: 1.15rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .selo-novo {
+            align-self: flex-start;
+            background-color: #ffe4e8;
+            color: #c9001a;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 0.22rem 0.6rem;
+            border-radius: 999px;
+            margin-bottom: 0.6rem;
+        }
+
+        .produto-corpo h3 {
+            font-size: 1rem;
+            color: #111111;
+            margin-bottom: 0.35rem;
+        }
+
+        .produto-corpo p {
+            font-size: 0.83rem;
+            color: #66666e;
+            line-height: 1.4;
+            margin-bottom: 0.9rem;
+            flex: 1;
+        }
+
+        .preco-linha {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.9rem;
+        }
+
+        .preco {
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: #c9001a;
+        }
+
+        .tag-entrega {
+            font-size: 0.74rem;
+            color: #52525b;
+            background-color: #f4f4f6;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+        }
+
+        .btn-card {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            background-color: #111111;
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 0.65rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-card:hover {
+            background-color: #c9001a;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #111111;
+            color: #a1a1aa;
+            text-align: center;
+            padding: 1.3rem;
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 860px) {
+            .hero-box {
+                grid-template-columns: 1fr;
+                padding: 2.2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .header-container {
+                flex-direction: column;
+                gap: 0.9rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-box h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span>FRETE GRÁTIS nas compras acima de R$ 199</span>
+        <span>CUPOM: <strong class="cupom">MEUMIMO</strong></span>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">BEAUTYSTORE</a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="produto.html">Catálogo</a>
+                <a href="login.html">Entrar</a>
+                <a href="new.html">Criar Conta</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-box">
+            <div>
+                <span class="hero-tag">Curadoria BeautyStore</span>
+                <h1>BEAUTYSTORE FRIDAY</h1>
+                <p>Descubra as melhores marcas de beleza, maquilhagem e perfumes com descontos imperdíveis e lançamentos selecionados para a sua rotina.</p>
+                <a href="produto.html" class="btn-comprar">VER CATÁLOGO COMPLETO</a>
+            </div>
+
+            <div class="hero-destaque-card">
+                <h3>Por que escolher a BeautyStore?</h3>
+                <p>Reunimos fórmulas de alta performance, fragrâncias marcantes e cuidados diários com atendimento ágil.</p>
+                <ul>
+                    <li>✓ Produtos originais e curadoria especializada</li>
+                    <li>✓ Lançamentos semanais em maquiagem e skincare</li>
+                    <li>✓ Frete grátis acima de R$ 199 com cupom MEUMIMO</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="info-grid">
+            <div class="info-card">
+                <h3>✨ Maquiagem & Acabamento</h3>
+                <p>Texturas leves, alta pigmentação e longa duração pensadas para produções do dia a dia até eventos especiais.</p>
+            </div>
+            <div class="info-card">
+                <h3>🌸 Perfumaria Assinatura</h3>
+                <p>Notas florais, cítricas e amadeiradas com ótima fixação para acompanhar cada momento do seu dia.</p>
+            </div>
+            <div class="info-card">
+                <h3>🧴 Skincare & Cabelos</h3>
+                <p>Ativos hidratantes, antioxidantes e reparadores para manter a pele viçosa e os fios saudáveis.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="secao-topo">
+                <div>
+                    <h2>Novidades da Semana</h2>
+                    <p>Chegaram agora na loja e já estão entre os favoritos para montar o seu carrinho.</p>
+                </div>
+                <a href="produto.html" class="link-ver-tudo">Explorar todos os produtos →</a>
+            </div>
+
+            <div class="novidades-grid">
+                <article class="produto-novidade">
+                    <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=600" alt="Base Líquida HD Soft Matte">
+                    <div class="produto-corpo">
+                        <span class="selo-novo">Novidade</span>
+                        <h3>Base Líquida HD Soft Matte</h3>
+                        <p>Cobertura modulável com toque seco confortável e acabamento uniforme nas fotos e no dia a dia.</p>
+                        <div class="preco-linha">
+                            <span class="preco">R$ 149,90</span>
+                            <span class="tag-entrega">Pronta entrega</span>
+                        </div>
+                        <a href="produto.html" class="btn-card">Ver no Catálogo</a>
+                    </div>
+                </article>
+
+                <article class="produto-novidade">
+                    <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600" alt="Batom Liquid Velvet">
+                    <div class="produto-corpo">
+                        <span class="selo-novo">Chegou esta semana</span>
+                        <h3>Batom Liquid Velvet</h3>
+                        <p>Acabamento aveludado sem ressecar os lábios, com cor intensa e aplicação precisa.</p>
+                        <div class="preco-linha">
+                            <span class="preco">R$ 89,90</span>
+                            <span class="tag-entrega">Mais pedido</span>
+                        </div>
+                        <a href="produto.html" class="btn-card">Ver no Catálogo</a>
+                    </div>
+                </article>
+
+                <article class="produto-novidade">
+                    <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600" alt="Perfume Floral Rose">
+                    <div class="produto-corpo">
+                        <span class="selo-novo">Lançamento</span>
+                        <h3>Perfume Floral Rose</h3>
+                        <p>Combinação elegante de pétalas de rosa com fundo suave, ideal para transitar do trabalho ao jantar.</p>
+                        <div class="preco-linha">
+                            <span class="preco">R$ 299,90</span>
+                            <span class="tag-entrega">Edição da semana</span>
+                        </div>
+                        <a href="produto.html" class="btn-card">Ver no Catálogo</a>
+                    </div>
+                </article>
+
+                <article class="produto-novidade">
+                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600" alt="Sérum Facial Vitamina C">
+                    <div class="produto-corpo">
+                        <span class="selo-novo">Destaque</span>
+                        <h3>Sérum Facial Vitamina C</h3>
+                        <p>Fórmula leve de rápida absorção que ajuda a uniformizar o tom e devolver o viço natural da pele.</p>
+                        <div class="preco-linha">
+                            <span class="preco">R$ 119,90</span>
+                            <span class="tag-entrega">Skincare diário</span>
+                        </div>
+                        <a href="produto.html" class="btn-card">Ver no Catálogo</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BEAUTYSTORE Cosméticos S.A.</p>
+    </footer>
+</body>
+</html>
